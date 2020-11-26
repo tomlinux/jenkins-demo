@@ -1,4 +1,4 @@
-node('jenkins-slave') {
+node() {
   stage('克隆代码') {
     echo "1.Clone Stage and Prepare"
     // git credentialsId: 'e63825bc-e13c-4734-a3cd-2e33d81a2c4d', url: 'git@github.com:tomlinux/jenkins-demo.git'
