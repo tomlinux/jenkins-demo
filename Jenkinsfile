@@ -60,6 +60,7 @@ pipeline{
          steps{
           PrintMes("4.Push Docker Image Stage", "green")
         
+        }
       }
       stage('发布') {
           steps{
