@@ -7,8 +7,8 @@ pipeline{
   environment {
     TimeStamp="${currentBuild.startTimeInMillis}"
     Service="${JOB_BASE_NAME}"
-    ## gitlab webhook 回调功能
-    ## Branch="${env.gitlabTargetBranch}"
+    //gitlab webhook 回调功能
+    //Branch="${env.gitlabTargetBranch}"
   }
 
   stages {
