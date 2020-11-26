@@ -3,12 +3,12 @@ node() {
     echo "1.Clone Stage and Prepare"
     // git credentialsId: 'e63825bc-e13c-4734-a3cd-2e33d81a2c4d', url: 'git@github.com:tomlinux/jenkins-demo.git'
     checkout scm
-    echo "${env.BRANCH_NAME}"
+    echo "${env.GIT_BRANCH}"
     sh "exit 3"
     script {
           build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-          if (env.BRANCH_NAME != 'master') {
-              build_tag = "${env.BRANCH_NAME}-${build_tag}"
+          if (env.GIT_BRANCH != 'master') {
+              build_tag = "${env.GIT_BRANCH}-${build_tag}"
           }
     }
     echo "${build_tag}"
@@ -46,7 +46,7 @@ node() {
     )
     echo "This is a deploy step to ${userInput}"
     sh "sed -i 's/<BUILD_TAG>/${build_tag}/' k8s.yaml"
-    sh "sed -i 's/<BRANCH_NAME>/${env.BRANCH_NAME}/' k8s.yaml"
+    sh "sed -i 's/<BRANCH_NAME>/${env.GIT_BRANCH}/' k8s.yaml"
     if (userInput == "Dev") {
     // deploy dev stuff
     } else if (userInput == "QA"){
