@@ -23,11 +23,11 @@ pipeline{
     Branch="${env.gitlabTargetBranch}"
   }
 
-  stages {
+node('jenkins-slave') {
       stage('克隆代码') {
         //PrintMes("1.代码克隆和准备阶段", "green")
         // git credentialsId: 'e63825bc-e13c-4734-a3cd-2e33d81a2c4d', url: 'git@github.com:tomlinux/jenkins-demo.git'
-        steps {
+ 
           sh 'printenv'
           checkout scm
           script {
@@ -38,40 +38,41 @@ pipeline{
                 }
           }       
           PrintMes($build_tag,"blue")   
-        }
+        
                
 
       }
       stage('测试项目') {
-        steps{
+      
 
          PrintMes("2.测试项目", "green")
 
-        }
+        
 
        
       }
       stage('构建镜像') {
-        steps{
+    
         PrintMes("3.Build Docker Image Stage", "green")
       
-        }
+        
       }
       stage('上传镜像') {
-         steps{
+         
           PrintMes("4.Push Docker Image Stage", "green")
         
-        }
+        
       }
       stage('发布') {
-          steps{
+          
             PrintMes("5. Deploy Stage", "green")
           
-          } 
+        
 
-      }  
+      } 
 
-  }
+}
+
 }
 
 
