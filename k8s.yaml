@@ -14,6 +14,8 @@ spec:
       labels:
         app: jenkins-demo
     spec:
+      terminationGracePeriodSeconds: 3
+      serviceAccount: qclond-pull-secret
       containers:
         - image: ccr.ccs.tencentyun.com/development/jenkins-demo:<BUILD_TAG>
           imagePullPolicy: IfNotPresent
