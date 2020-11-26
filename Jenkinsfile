@@ -8,22 +8,22 @@ def PrintMes(value,color){
         println(colors[color])
     }
 }
+options {
+  timestamps()
+}
+environment {
+  TimeStamp="${currentBuild.startTimeInMillis}"
+  Service="${JOB_BASE_NAME}"
+  Branch_Name= 'master'
+  //gitlab webhook 回调功能
+  Branch="${env.gitlabTargetBranch}"
+}  
 
-pipeline{
-
-  agent { node 'jenkins-slave' } 
-  options {
-    timestamps()
-  }
-  environment {
-    TimeStamp="${currentBuild.startTimeInMillis}"
-    Service="${JOB_BASE_NAME}"
-    Branch_Name= 'master'
-    //gitlab webhook 回调功能
-    Branch="${env.gitlabTargetBranch}"
-  }
 
 node('jenkins-slave') {
+
+
+
       stage('克隆代码') {
         //PrintMes("1.代码克隆和准备阶段", "green")
         // git credentialsId: 'e63825bc-e13c-4734-a3cd-2e33d81a2c4d', url: 'git@github.com:tomlinux/jenkins-demo.git'
@@ -73,6 +73,5 @@ node('jenkins-slave') {
 
 }
 
-}
 
 
