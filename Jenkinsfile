@@ -18,7 +18,7 @@ pipeline{
   environment {
     TimeStamp="${currentBuild.startTimeInMillis}"
     Service="${JOB_BASE_NAME}"
-    BRANCH_NAME='master'
+    Branch_Name="master"
     //gitlab webhook 回调功能
     Branch="${env.gitlabTargetBranch}"
   }
@@ -32,8 +32,8 @@ pipeline{
           script {
                 BRANCH_NAME_TAG = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
                 build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-                if ($BRANCH_NAME != 'master') {
-                    build_tag = "${BRANCH_NAME}-${build_tag}"
+                if (${Branch_Name} != 'master') {
+                    build_tag = "${Branch_Name}-${build_tag}"
                 }
           }       
           PrintMes($build_tag,"blue")   
@@ -86,7 +86,7 @@ pipeline{
             // )
             echo "This is a deploy step to ${userInput}"
             sh "sed -i 's/<BUILD_TAG>/${build_tag}/' k8s.yaml"
-            sh "sed -i 's/<BRANCH_NAME>/${env.BRANCH_NAME}/' k8s.yaml"
+            sh "sed -i 's/<BRANCH_NAME>/${Branch_Name}/' k8s.yaml"
             // if (userInput == "Dev") {
             //   PrintMes("dev","green")
             // } else if (userInput == "QA"){
