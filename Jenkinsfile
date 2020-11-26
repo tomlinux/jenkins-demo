@@ -3,6 +3,8 @@ node('jenkins-slave') {
     echo "1.Clone Stage and Prepare"
     // git credentialsId: 'e63825bc-e13c-4734-a3cd-2e33d81a2c4d', url: 'git@github.com:tomlinux/jenkins-demo.git'
     checkout scm
+    echo "${env.BRANCH_NAME}"
+    sh "exit 3"
     script {
           build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
           if (env.BRANCH_NAME != 'master') {
