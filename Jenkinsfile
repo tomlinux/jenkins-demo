@@ -18,7 +18,7 @@ pipeline{
   environment {
     TimeStamp="${currentBuild.startTimeInMillis}"
     Service="${JOB_BASE_NAME}"
-    Branch_Name="master"
+    Branch_Name= 'master'
     //gitlab webhook 回调功能
     Branch="${env.gitlabTargetBranch}"
   }
@@ -28,11 +28,12 @@ pipeline{
         //PrintMes("1.代码克隆和准备阶段", "green")
         // git credentialsId: 'e63825bc-e13c-4734-a3cd-2e33d81a2c4d', url: 'git@github.com:tomlinux/jenkins-demo.git'
         steps {
+          sh 'printenv'
           checkout scm
           script {
                 BRANCH_NAME_TAG = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
                 build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-                if ($Branch_Name != 'master') {
+                if (Branch_Name != 'master') {
                     build_tag = "${Branch_Name}-${build_tag}"
                 }
           }       
