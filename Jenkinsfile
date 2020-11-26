@@ -8,9 +8,7 @@ def PrintMes(value,color){
         println(colors[color])
     }
 }
-options {
-  timestamps()
-}
+
 environment {
   TimeStamp="${currentBuild.startTimeInMillis}"
   Service="${JOB_BASE_NAME}"
