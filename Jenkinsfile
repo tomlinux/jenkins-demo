@@ -25,7 +25,7 @@ pipeline{
 
   stages {
       stage('克隆代码') {
-        PrintMes("1.代码克隆和准备阶段", "green")
+        //PrintMes("1.代码克隆和准备阶段", "green")
         // git credentialsId: 'e63825bc-e13c-4734-a3cd-2e33d81a2c4d', url: 'git@github.com:tomlinux/jenkins-demo.git'
         checkout scm
         script {
@@ -41,17 +41,17 @@ pipeline{
       }
       stage('测试项目') {
 
-         PrintMes("2.测试项目", "green")
+        // PrintMes("2.测试项目", "green")
         // for(e in env){
         //   echo e + " is " + ${e}}
         // }
       }
       stage('构建镜像') {
-        PrintMes("3.Build Docker Image Stage", "green")
+        //PrintMes("3.Build Docker Image Stage", "green")
         sh "docker build -t  ccr.ccs.tencentyun.com/development/jenkins-demo:${build_tag} ."
       }
       stage('上传镜像') {
-          PrintMes("4.Push Docker Image Stage", "green")
+          //PrintMes("4.Push Docker Image Stage", "green")
           withCredentials([usernamePassword(credentialsId: '482f25c0-a6a0-48de-bd44-67242f69e8c1', passwordVariable: 'QclondRegistryPassword', usernameVariable: 'QclondRegistryUser')]) {
               sh "docker login  ccr.ccs.tencentyun.com -u ${QclondRegistryUser} -p ${QclondRegistryPassword}"
               sh "docker push  ccr.ccs.tencentyun.com/development/jenkins-demo:${build_tag}"
@@ -59,7 +59,7 @@ pipeline{
           }
       }
       stage('发布') {
-        PrintMes("5. Deploy Stage", "green")
+        //PrintMes("5. Deploy Stage", "green")
         def userInput = input(
           id: 'userInput',
           message: 'Choose a deploy environment',
