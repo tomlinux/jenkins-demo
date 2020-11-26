@@ -56,5 +56,5 @@ node('jenkins-slave') {
     // sh "kubectl apply -f k8s.yaml -n default"
   }
 }
-}
+
 
