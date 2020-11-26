@@ -88,11 +88,13 @@ pipeline{
             sh "sed -i 's/<BUILD_TAG>/${build_tag}/' k8s.yaml"
             sh "sed -i 's/<BRANCH_NAME>/${env.BRANCH_NAME}/' k8s.yaml"
             if (userInput == "Dev") {
-            // deploy dev stuff
+              PrintMes("dev","green")
             } else if (userInput == "QA"){
             // deploy qa stuff
+              PrintMes("qa","green")
             } else {
             // deploy prod stuff
+              PrintMes("prod","green")
             }
             echo "发布成功"
             // sh "kubectl apply -f k8s.yaml -n default"
