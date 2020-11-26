@@ -30,17 +30,15 @@ node('jenkins-slave') {
           script {
                 BRANCH_NAME_TAG = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
                 build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-                // Branch_Name = 'master'
-                // if (Branch_Name != 'master') {
-                //     build_tag = "${Branch_Name}-${build_tag}"
-                // }
+                Branch_Name = 'master'
+                if (Branch_Name != 'master') {
+                    build_tag = "${Branch_Name}-${build_tag}"
+                }
           }       
-          PrintMes($build_tag,"green")     
+          println("${build_tag}")     
                
       }
       stage('测试项目') {
-      
-
          PrintMes("2.测试项目", "green")
 
         
@@ -48,19 +46,16 @@ node('jenkins-slave') {
        
       }
       stage('构建镜像') {
-    
         PrintMes("3.Build Docker Image Stage", "green")
       
         
       }
       stage('上传镜像') {
-         
           PrintMes("4.Push Docker Image Stage", "green")
         
         
       }
       stage('发布') {
-          
             PrintMes("5. Deploy Stage", "green")
           
         
