@@ -73,17 +73,17 @@ pipeline{
       stage('发布') {
           steps{
             PrintMes("5. Deploy Stage", "green")
-            def userInput = input(
-              id: 'userInput',
-              message: 'Choose a deploy environment',
-              parameters: [
-                  [
-                      $class: 'ChoiceParameterDefinition',
-                      choices: "Dev\nQA\nProd",
-                      name: 'Env'
-                  ]
-              ]
-            )
+            //             def userInput = input(
+            //   id: 'userInput',
+            //   message: 'Choose a deploy environment',
+            //   parameters: [
+            //       [
+            //           $class: 'ChoiceParameterDefinition',
+            //           choices: "Dev\nQA\nProd",
+            //           name: 'Env'
+            //       ]
+            //   ]
+            // )
             echo "This is a deploy step to ${userInput}"
             sh "sed -i 's/<BUILD_TAG>/${build_tag}/' k8s.yaml"
             sh "sed -i 's/<BRANCH_NAME>/${env.BRANCH_NAME}/' k8s.yaml"
