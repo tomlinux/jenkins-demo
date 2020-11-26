@@ -15,13 +15,13 @@ pipeline{
       echo "1.Clone Stage and Prepare"
       // git credentialsId: 'e63825bc-e13c-4734-a3cd-2e33d81a2c4d', url: 'git@github.com:tomlinux/jenkins-demo.git'
       checkout scm
-  5   script {
-  6             build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-  7             if (env.BRANCH_NAME != 'master') {
-  8                 build_tag = "${env.BRANCH_NAME}-${build_tag}"
-  		}
- 10    }
-       echo "${build_tag}"
+      script {
+            build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+            if (env.BRANCH_NAME != 'master') {
+                build_tag = "${env.BRANCH_NAME}-${build_tag}"
+            }
+      }
+      echo "${build_tag}"
     }
     stage('测试项目') {
       echo "2.Test Stage"
@@ -57,13 +57,14 @@ pipeline{
       echo "This is a deploy step to ${userInput}"
       sh "sed -i 's/<BUILD_TAG>/${build_tag}/' k8s.yaml"
       sh "sed -i 's/<BRANCH_NAME>/${env.BRANCH_NAME}/' k8s.yaml"
-      if (userInput == "Dev") {
+      sh "cat k8s.yaml"
+      //if (userInput == "Dev") {
       // deploy dev stuff
-      } else if (userInput == "QA"){
+      //} else if (userInput == "QA"){
       // deploy qa stuff
-      } else {
+     // } else {
       // deploy prod stuff
-      }
+      //}
       echo "发布成功"
       // sh "kubectl apply -f k8s.yaml -n default"
     }
