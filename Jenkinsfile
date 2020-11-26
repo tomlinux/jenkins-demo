@@ -19,18 +19,21 @@ environment {
 
 
 node('jenkins-slave') {
-
-
-
+      options {
+          timestamps()
+      }
       stage('克隆代码') {
         //PrintMes("1.代码克隆和准备阶段", "green")
         // git credentialsId: 'e63825bc-e13c-4734-a3cd-2e33d81a2c4d', url: 'git@github.com:tomlinux/jenkins-demo.git'
  
-          sh 'printenv'
+          PrintMes($Service,"blue")  
+          echo "===================="
+          printenv()
           checkout scm
           script {
                 BRANCH_NAME_TAG = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
                 build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+                Branch_Name = 'master'
                 if (Branch_Name != 'master') {
                     build_tag = "${Branch_Name}-${build_tag}"
                 }
