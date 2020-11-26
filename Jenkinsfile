@@ -35,9 +35,8 @@ node('jenkins-slave') {
                 //     build_tag = "${Branch_Name}-${build_tag}"
                 // }
           }       
-          echo "$build_tag"        
+          PrintMes($build_tag,"green")     
                
-
       }
       stage('测试项目') {
       
