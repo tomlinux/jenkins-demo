@@ -5,7 +5,7 @@ node() {
     checkout scm
     echo "${env.BRANCH_NAME}"
     echo "====================="
- 
+    echo "======" 
     script {
           BRANCH_NAME_TAG = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
           build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
