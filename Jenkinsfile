@@ -83,7 +83,7 @@ node('jenkins-slave') {
         //     input "确认要部署线上环境吗？"
         // }
 
-            //sh "kubectl apply -f k8s.yaml --record"
+              sh "kubectl apply -f k8s.yaml --record"
   }            
           
         

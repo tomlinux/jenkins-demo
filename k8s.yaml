@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: app/v1
 kind: Deployment
 metadata:
   name: jenkins-demo
@@ -10,7 +10,7 @@ spec:
         app: jenkins-demo
     spec:
       containers:
-      - image: registry.cn-hangzhou.aliyuncs.com/ik9s/jenkins-demo:<BUILD_TAG>
+      - image: ccr.ccs.tencentyun.com/development/jenkins-demo:<BUILD_TAG>
         imagePullPolicy: IfNotPresent
         name: jenkins-demo
         env:
