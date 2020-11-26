@@ -32,7 +32,7 @@ pipeline{
           script {
                 BRANCH_NAME_TAG = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
                 build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-                if (${Branch_Name} != 'master') {
+                if ($Branch_Name != 'master') {
                     build_tag = "${Branch_Name}-${build_tag}"
                 }
           }       
@@ -45,10 +45,6 @@ pipeline{
         steps{
 
          PrintMes("2.测试项目", "green")
-        // for(e in env){
-        //   echo e + " is " + ${e}}
-        // }          
-
 
         }
 
@@ -57,47 +53,18 @@ pipeline{
       stage('构建镜像') {
         steps{
         PrintMes("3.Build Docker Image Stage", "green")
-        sh "docker build -t  ccr.ccs.tencentyun.com/development/jenkins-demo:${build_tag} ."
+      
         }
       }
       stage('上传镜像') {
          steps{
           PrintMes("4.Push Docker Image Stage", "green")
-          withCredentials([usernamePassword(credentialsId: '482f25c0-a6a0-48de-bd44-67242f69e8c1', passwordVariable: 'QclondRegistryPassword', usernameVariable: 'QclondRegistryUser')]) {
-              sh "docker login  ccr.ccs.tencentyun.com -u ${QclondRegistryUser} -p ${QclondRegistryPassword}"
-              sh "docker push  ccr.ccs.tencentyun.com/development/jenkins-demo:${build_tag}"
-              sh "docker rmi  ccr.ccs.tencentyun.com/development/jenkins-demo:${build_tag}"
-          }
-        }
+        
       }
       stage('发布') {
           steps{
             PrintMes("5. Deploy Stage", "green")
-            //             def userInput = input(
-            //   id: 'userInput',
-            //   message: 'Choose a deploy environment',
-            //   parameters: [
-            //       [
-            //           $class: 'ChoiceParameterDefinition',
-            //           choices: "Dev\nQA\nProd",
-            //           name: 'Env'
-            //       ]
-            //   ]
-            // )
-            echo "This is a deploy step to ${userInput}"
-            sh "sed -i 's/<BUILD_TAG>/${build_tag}/' k8s.yaml"
-            sh "sed -i 's/<BRANCH_NAME>/${Branch_Name}/' k8s.yaml"
-            // if (userInput == "Dev") {
-            //   PrintMes("dev","green")
-            // } else if (userInput == "QA"){
-            // // deploy qa stuff
-            //   PrintMes("qa","green")
-            // } else {
-            // // deploy prod stuff
-            //   PrintMes("prod","green")
-            // }
-            echo "发布成功"
-            // sh "kubectl apply -f k8s.yaml -n default"
+          
           } 
 
       }  
