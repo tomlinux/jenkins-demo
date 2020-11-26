@@ -4,6 +4,7 @@ node() {
     // git credentialsId: 'e63825bc-e13c-4734-a3cd-2e33d81a2c4d', url: 'git@github.com:tomlinux/jenkins-demo.git'
     checkout scm
     echo "${env.GIT_BRANCH}"
+    echo "${env.getEnvironment}"
     echo "====================="
     echo "======" 
     script {
