@@ -24,7 +24,7 @@ node('jenkins-slave') {
         //PrintMes("1.代码克隆和准备阶段", "green")
         // git credentialsId: 'e63825bc-e13c-4734-a3cd-2e33d81a2c4d', url: 'git@github.com:tomlinux/jenkins-demo.git'
  
-          PrintMes($Service,"blue")  
+          PrintMes("$Service","blue")  
           echo "===================="
           printenv()
           checkout scm
