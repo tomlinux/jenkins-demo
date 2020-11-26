@@ -19,15 +19,15 @@ pipeline{
   6             build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
   7             if (env.BRANCH_NAME != 'master') {
   8                 build_tag = "${env.BRANCH_NAME}-${build_tag}"
-  9             }
+  		}
  10    }
        echo "${build_tag}"
     }
     stage('测试项目') {
       echo "2.Test Stage"
-//      for(e in env){
- //      echo e + " is " + ${e}}
-      }
+      // for(e in env){
+      //   echo e + " is " + ${e}}
+      // }
     }
     stage('构建镜像') {
       echo "3.Build Docker Image Stage"
@@ -67,7 +67,6 @@ pipeline{
       echo "发布成功"
       // sh "kubectl apply -f k8s.yaml -n default"
     }
-
+  }
 
 }
-
