@@ -30,10 +30,10 @@ node('jenkins-slave') {
           script {
                 BRANCH_NAME_TAG = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
                 build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-                Branch_Name = 'master'
-                if (Branch_Name != 'master') {
-                    build_tag = "${Branch_Name}-${build_tag}"
-                }
+                // Branch_Name = 'master'
+                // if (Branch_Name != 'master') {
+                //     build_tag = "${Branch_Name}-${build_tag}"
+                // }
           }       
           PrintMes($build_tag,"blue")   
         
