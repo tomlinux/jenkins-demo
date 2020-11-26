@@ -8,7 +8,7 @@ pipeline{
     TimeStamp="${currentBuild.startTimeInMillis}"
     Service="${JOB_BASE_NAME}"
     //gitlab webhook 回调功能
-    //Branch="${env.gitlabTargetBranch}"
+    Branch="${env.gitlabTargetBranch}"
   }
 
   stages {
@@ -17,6 +17,7 @@ pipeline{
             sh 'docker info'
             echo "${env.TimeStamp}"
             echo "${env.Service}"
+            echo "${env.Branch}"
         }
     }
 }
