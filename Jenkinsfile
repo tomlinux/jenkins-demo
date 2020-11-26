@@ -19,9 +19,7 @@ environment {
 
 
 node('jenkins-slave') {
-      options {
-          timestamps()
-      }
+
       stage('克隆代码') {
         //PrintMes("1.代码克隆和准备阶段", "green")
         // git credentialsId: 'e63825bc-e13c-4734-a3cd-2e33d81a2c4d', url: 'git@github.com:tomlinux/jenkins-demo.git'
