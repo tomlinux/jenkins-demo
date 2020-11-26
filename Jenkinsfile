@@ -26,7 +26,6 @@ node('jenkins-slave') {
  
           // PrintMes("$Service","blue")  错误
           echo "===================="
-          printenv()
           checkout scm
           script {
                 BRANCH_NAME_TAG = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
