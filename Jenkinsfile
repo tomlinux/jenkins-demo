@@ -3,14 +3,14 @@ node() {
     echo "1.Clone Stage and Prepare"
     // git credentialsId: 'e63825bc-e13c-4734-a3cd-2e33d81a2c4d', url: 'git@github.com:tomlinux/jenkins-demo.git'
     checkout scm
-    echo "${env.BRANCH_NAME}"
+    echo "${env.GIT_BRANCH}"
     echo "====================="
     echo "======" 
     script {
           BRANCH_NAME_TAG = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
           build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-          if (env.BRANCH_NAME != 'master') {
-              build_tag = "${env.BRANCH_NAME}-${build_tag}"
+          if (env.GIT_BRANCH != 'master') {
+              build_tag = "${env.GIT_BRANCH}-${build_tag}"
           }
     }
     echo "build_tag :${build_tag}"
