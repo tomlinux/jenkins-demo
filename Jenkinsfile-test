@@ -34,17 +34,17 @@ pipeline {
       }
       stage('构建镜像') {
         steps {
-          PrintMes('3.Build Docker Image Stage', 'green')
+          PrintMes('3.构建docker容器', 'green')
         }
       }
       stage('上传镜像') {
       steps {
-          PrintMes('4.Push Docker Image Stage', 'green')
+          PrintMes('4.推送docker镜像库', 'green')
       }
       }
       stage('发布') {
       steps {
-        PrintMes('5. Deploy Stage', 'green')
+        PrintMes('5. 发布k8s yaml', 'green')
       }
       }
   }
