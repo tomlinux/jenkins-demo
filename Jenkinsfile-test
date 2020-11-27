@@ -25,6 +25,16 @@ pipeline {
       stage('克隆代码') {
         steps {
           PrintMes('1.代码克隆和准备阶段', 'green')
+          checkout scm
+          script {
+          BRANCH_NAME_TAG = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+          build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+          Branch_Name = 'master'
+          if (Branch_Name != 'master') {
+            build_tag = "${Branch_Name}-${build_tag}"
+          }
+          println("build_tag的值是：${build_tag}")
+          }
         }
       }
       stage('测试项目') {
