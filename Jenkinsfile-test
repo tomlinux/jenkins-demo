@@ -37,6 +37,26 @@ pipeline {
           }
         }
       }
+      stage('Build') {
+      parallel {
+        stage('Build:Module1') {
+          steps {
+            sh 'echo Build Module1 stage ...'
+          }
+        }
+        stage('Build:Module2') {
+          steps {
+            sh 'echo Build Module2 stage ...'
+          }
+        }
+        stage('Build:Module3') {
+          steps {
+            sh 'echo Build Module3 stage ...'
+          }
+        }
+      }
+      }
+
       stage('测试项目') {
         steps {
           input '确认要部署线上环境吗？'
@@ -52,14 +72,14 @@ pipeline {
                       parameters: [choice(name: 'DEPLOY_ENV', choices: ['prd', 'uat', 'test'], description: '选择部署环境')]
                 switch ("${env.DEPLOY_ENV}") {
                 case 'prd':
-                    println('deploy prd env')
-                    break
+                println('deploy prd env')
+                break
                 case 'uat':
-                    println('deploy uat env')
-                    break
+                println('deploy uat env')
+                break
                 case 'test':
-                    println('deploy test env')
-                    break
+                println('deploy test env')
+                break
                 default:
                     println('error env')
                 }
