@@ -39,6 +39,7 @@ pipeline {
       }
       stage('测试项目') {
         steps {
+          input "确认要部署线上环境吗？"
           PrintMes('2.测试项目', 'green')
         }
       }
