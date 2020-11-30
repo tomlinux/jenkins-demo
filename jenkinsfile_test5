@@ -1,0 +1,35 @@
+pipeline {
+	agent any
+	options {
+		timestamps()
+	}
+	environment {
+		TimeStamp="${currentBuild.startTimeInMillis}"
+		Service="${JOB_BASE_NAME}"
+		Branch="${env.gitlabTargetBranch}"
+	}
+
+
+	parameters {
+		choice(name: 'Action',choices: '程序发版\n程序回滚',description: '请选择操作')
+		choice(name: 'Scope',choices: '测试环境\n预发环境\n生产环境\n灾备环境',description: '请选择部署环境')
+		string(name: 'JenkinsApi', defaultValue: 'false', description: '是否是JenkinsAPI触发,默认请不要填写。')
+		string(name: 'BranchOrTag', defaultValue: '', description: '指定分支或tag发版,默认请不要填写。')
+	}
+	stages {
+		stage('PrintEnv') {
+			steps {
+				sh "printenv"
+				sh 'echo ++++++++++++++++'
+				sh "echo ${env.Service}"
+				sh 'echo ++++++++++++++++'
+				sh "echo ${env.TimeStamp}"
+				sh 'echo ++++++++++++++++'
+				sh "echo ${params.Action}"
+				sh "echo +++++++++++++++"
+				sh "echo ${params.Scope}"
+			}
+		}
+
+	}
+}

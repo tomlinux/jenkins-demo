@@ -36,6 +36,7 @@ pipeline {
         stage('Build') { 
             steps { 
                 echo "Build stage: 选中的构建Module为 : ${params.modulename} ..." 
+                echo  ${env.gitlabTargetBranch}
             }
         }
         stage('Test'){
