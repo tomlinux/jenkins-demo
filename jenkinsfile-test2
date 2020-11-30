@@ -1,0 +1,50 @@
+// 测试多个parallel  stage task使用规则
+pipeline {
+  agent any
+  stages {
+    stage('build') {
+      steps {
+        sleep 1
+      }
+    }
+
+    stage('test') {
+      parallel {
+        stage('test') {
+          steps {
+            echo 'test'
+          }
+        }
+
+        stage('test2') {
+          steps {
+            echo 'test2'
+          }
+        }
+
+        stage('test3') {
+          steps {
+            echo 'test3'
+          }
+        }
+
+        stage('test4') {
+          steps {
+            echo 'test4'
+          }
+        }
+
+      }
+    }
+
+    stage('deploy') {
+      steps {
+        echo 'deploy'
+      }
+    }
+
+  }
+  environment {
+    name = '32323'
+  }
+}
