@@ -21,6 +21,7 @@ pipeline {
 			steps {
 				sh "printenv"
 				sh 'echo ++++++++++++++++'
+				println("参数Action的值是：${env.Action}}")
 				sh "echo ${env.Service}"
 				sh 'echo ++++++++++++++++'
 				sh "echo ${env.TimeStamp}"
