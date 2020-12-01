@@ -20,11 +20,15 @@ pipeline {
 	stages {
 		stage('PrintEnv') {
 			steps {
-				TAG = VersionNumber(versionNumberString: '${BUILD_DATE_FORMATTED, "yyyyMMdd"}-develop-${BUILDS_TODAY}')
-				println("版本tag的值是：$TAG")
-				sh "printenv"
-				sh 'echo ++++++++++++++++'
-				println("参数Action的值是：${env.Action}")
+				script{
+					TAG = VersionNumber (versionNumberString: '${BUILD_DATE_FORMATTED, "yyyyMMdd"}-develop-${BUILDS_TODAY}')
+					println("版本tag的值是：$TAG")
+					sh "printenv"
+					sh 'echo ++++++++++++++++'
+					println("参数Action的值是：${env.Action}")		
+				}
+
+				
 				sh "echo ${env.Service}"
 				sh 'echo ++++++++++++++++'
 				sh "echo ${env.TimeStamp}"
