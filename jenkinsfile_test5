@@ -1,3 +1,4 @@
+// Jenkinsfile with "version number plugin" installed:
 pipeline {
 	agent any
 	options {
@@ -19,6 +20,8 @@ pipeline {
 	stages {
 		stage('PrintEnv') {
 			steps {
+				TAG = VersionNumber(versionNumberString: '${BUILD_DATE_FORMATTED, "yyyyMMdd"}-develop-${BUILDS_TODAY}')
+				println("版本tag的值是：$TAG")
 				sh "printenv"
 				sh 'echo ++++++++++++++++'
 				println("参数Action的值是：${env.Action}")
